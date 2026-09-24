@@ -720,7 +720,7 @@
 
     <div class="info-section-title">최종 SEKAI RATING 계산식</div>
     <div style="background: #222; padding: 10px 12px; border-radius: 6px; border: 1px solid #333; margin-bottom: 12px;">
-      <p style="margin: 0 0 4px 0; color: #aaa;">• FC 레이팅 = 악곡 레벨 - (악곡 레벨 * 0.002)</p>
+      <p style="margin: 0 0 4px 0; color: #aaa;">• FC 레이팅 = 악곡 레벨 + (악곡 레벨 * 0.002)</p>
       <p style="margin: 0 0 6px 0; color: #aaa;">• AP 레이팅 = 악곡 레벨 + 2 + (악곡 레벨 * 0.008)</p>
       <p style="margin: 0 0 4px 0; color: #aaa;">• MASTER 이하 : <strong>MASTER 이하 악곡 레이팅 상위 25곡의 평균값</strong></p>
       <p style="margin: 0; color: #aaa;">• APPEND : <strong>APPEND 악곡 레이팅 상위 20곡의 평균값</strong></p>
@@ -1242,7 +1242,7 @@
 
     levels.forEach(level => {
       const data = currentMode === 'mas' ? dataMAS[level] : dataAPD[level];
-      const fcPts = format3(level - (level * 0.002));
+      const fcPts = format3(level + (level * 0.002));
       const apPts = format3(level + 2 + (level * 0.008));
       
       let badgeBg = '';
@@ -1322,7 +1322,7 @@
         allAchievements.push({
           lvl: lvl,
           type: 'FC',
-          score: trunc3(lvl - (lvl * 0.002)),
+          score: trunc3(lvl + (lvl * 0.002)),
           key: `${currentMode}_${lvl}_FC_${dupIdx}`
         });
       }
