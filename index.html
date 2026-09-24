@@ -263,7 +263,7 @@
 
   .result-box {
     position: relative;
-    padding: 18px 20px 28px 20px;
+    padding: 24px 20px;
     background: #1e1e1e;
     border-radius: 12px;
     text-align: center;
@@ -322,28 +322,8 @@
   .next-rank {
     font-size: 12px;
     color: #888;
-    margin-top: 8px;
-    margin-bottom: 4px;
+    margin-top: 12px;
     line-height: 1.2;
-  }
-  .judge-deck-container {
-    position: absolute;
-    bottom: 8px;
-    right: 12px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 11px;
-    color: #aaa;
-    cursor: pointer;
-    user-select: none;
-  }
-  .judge-deck-container input[type="checkbox"] {
-    cursor: pointer;
-    accent-color: #0bc;
-    margin: 0;
-    width: 13px;
-    height: 13px;
   }
 
   .major-achievements-box {
@@ -419,7 +399,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,1) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 25%, rgba(0,0,0,1) 100%);
     pointer-events: none;
     z-index: 1;
   }
@@ -639,8 +619,8 @@
   <div class="content-wrapper">
     <div class="left-panel">
       <div class="tabs">
-        <div class="tab active" onclick="switchTab('mas', event)">MASTER 이하 (39곡)</div>
-        <div class="tab" onclick="switchTab('apd', event)">APPEND (26곡)</div>
+        <div class="tab active" onclick="switchTab('mas', event)">MASTER 이하 (25곡)</div>
+        <div class="tab" onclick="switchTab('apd', event)">APPEND (20곡)</div>
       </div>
       <div id="input-container" class="horizontal-grid">
       </div>
@@ -665,10 +645,6 @@
         <div class="result-score" id="final-score">0<span class="decimal">.000</span></div>
         <div class="result-rank" id="final-rank">UNRANKED</div>
         <div class="next-rank" id="next-rank">다음 등급까지 남은 점수: 10.000</div>
-        <label class="judge-deck-container" title="판정 강화 덱 사용 시 최종 레이팅에서 0.068 감산">
-          <input type="checkbox" id="judge-deck-checkbox" onchange="toggleJudgeDeck(this.checked)">
-          <span>판정 강화 덱 사용</span>
-        </label>
       </div>
 
       <div class="major-achievements-box">
@@ -744,43 +720,10 @@
 
     <div class="info-section-title">최종 SEKAI RATING 계산식</div>
     <div style="background: #222; padding: 10px 12px; border-radius: 6px; border: 1px solid #333; margin-bottom: 12px;">
-      <p style="margin: 0 0 6px 0;">악곡 레이팅 = <strong>악곡 레벨 + 성과별 레이팅 가산</strong></p>
-      <p style="margin: 0 0 4px 0; color: #aaa;">• MASTER 이하 : <strong>MASTER 이하 악곡 레이팅 상위 39곡의 평균값</strong></p>
-      <p style="margin: 0; color: #aaa;">• APPEND : <strong>APPEND 악곡 레이팅 상위 26곡의 평균값</strong></p>
-    </div>
-
-    <table class="info-table">
-      <thead>
-        <tr>
-          <th>프로세카 성과</th>
-          <th colspan="2">CHUNITHM 스코어 변환</th>
-          <th>레이팅 가산</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="color: #81fafa; font-weight: bold;">ALL PERFECT!</td>
-          <td>1,010,000</td>
-          <td>SSS+</td>
-          <td style="color: #81fafa; font-weight: bold;">+2.150</td>
-        </tr>
-        <tr>
-          <td style="color: #ff80ab; font-weight: bold;">FULL COMBO!</td>
-          <td>993,166</td>
-          <td>S+</td>
-          <td style="color: #ff80ab; font-weight: bold;">+0.726</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div style="background: #222; padding: 10px 12px; border-radius: 6px; border: 1px solid #333; font-size: 12px; color: #ccc;">
-      <strong style="color: #0bc;">FC 스코어 및 레이팅 가산 변환 과정</strong>
-      <ol style="margin: 6px 0 0 0; padding-left: 20px;">
-        <li>노트 수가 1000개인 악곡에서 50개의 GREAT 판정으로 FC를 한 것으로 가정</li>
-        <li>프로세카 랭크 매치 & 대회 스코어 체계로 백분율 변환 시 98.3333...%</li>
-        <li>CHUNITHM 이론치인 1,010,000점을 기준으로 변환 시 993,166점</li>
-        <li>레이팅 가산 변환 시 0.72이나 소수점 셋째자리까지 포함한 0.726을 가산함</li>
-      </ol>
+      <p style="margin: 0 0 4px 0; color: #aaa;">• FC 레이팅 = 악곡 레벨 - (악곡 레벨 * 0.002)</p>
+      <p style="margin: 0 0 6px 0; color: #aaa;">• AP 레이팅 = 악곡 레벨 + 2 + (악곡 레벨 * 0.008)</p>
+      <p style="margin: 0 0 4px 0; color: #aaa;">• MASTER 이하 : <strong>MASTER 이하 악곡 레이팅 상위 25곡의 평균값</strong></p>
+      <p style="margin: 0; color: #aaa;">• APPEND : <strong>APPEND 악곡 레이팅 상위 20곡의 평균값</strong></p>
     </div>
 
     <div class="info-section-title">랭크별 타겟 레이팅 기준표</div>
@@ -795,109 +738,88 @@
         </thead>
         <tbody>
           <tr>
-            <td rowspan="4" id="rank-name-AMETHYST" style="color: #85e; font-weight: bold; background: #222;">AMETHYST</td>
+            <td rowspan="4" id="rank-name-AMETHYST" style="color: #85e; font-weight: bold; background: #222; text-shadow: 0 0 5px #000;">AMETHYST</td>
             <td id="rank-sub-AMETHYST-IV">IV</td>
             <td id="rank-val-AMETHYST-IV-mas">-</td>
-            <td id="rank-val-AMETHYST-IV-apd">37.750</td>
+            <td id="rank-val-AMETHYST-IV-apd">-</td>
           </tr>
           <tr>
             <td id="rank-sub-AMETHYST-III">III</td>
-            <td id="rank-val-AMETHYST-III-mas">-</td>
-            <td id="rank-val-AMETHYST-III-apd">37.500</td>
+            <td id="rank-val-AMETHYST-III-mas">36.000</td>
+            <td id="rank-val-AMETHYST-III-apd">38.000</td>
           </tr>
           <tr>
             <td id="rank-sub-AMETHYST-II">II</td>
-            <td id="rank-val-AMETHYST-II-mas">-</td>
-            <td id="rank-val-AMETHYST-II-apd">37.250</td>
+            <td id="rank-val-AMETHYST-II-mas">35.000</td>
+            <td id="rank-val-AMETHYST-II-apd">37.000</td>
           </tr>
           <tr class="grade-i">
             <td id="rank-sub-AMETHYST-I">I</td>
-            <td id="rank-val-AMETHYST-I-mas">36.000</td>
-            <td id="rank-val-AMETHYST-I-apd">37.000</td>
+            <td id="rank-val-AMETHYST-I-mas">34.000</td>
+            <td id="rank-val-AMETHYST-I-apd">36.000</td>
           </tr>
           <tr>
-            <td rowspan="4" id="rank-name-EMERALD" style="color: #2c8; font-weight: bold; background: #222;">EMERALD</td>
-            <td id="rank-sub-EMERALD-IV">IV</td>
-            <td id="rank-val-EMERALD-IV-mas">35.750</td>
-            <td id="rank-val-EMERALD-IV-apd">36.750</td>
+            <td rowspan="4" id="rank-name-GARNET" style="color: #e36; font-weight: bold; background: #222; text-shadow: 0 0 5px #000;">GARNET</td>
+            <td id="rank-sub-GARNET-IV">IV</td>
+            <td id="rank-val-GARNET-IV-mas">33.750</td>
+            <td id="rank-val-GARNET-IV-apd">35.750</td>
           </tr>
           <tr>
-            <td id="rank-sub-EMERALD-III">III</td>
-            <td id="rank-val-EMERALD-III-mas">35.500</td>
-            <td id="rank-val-EMERALD-III-apd">36.500</td>
+            <td id="rank-sub-GARNET-III">III</td>
+            <td id="rank-val-GARNET-III-mas">33.500</td>
+            <td id="rank-val-GARNET-III-apd">35.500</td>
           </tr>
           <tr>
-            <td id="rank-sub-EMERALD-II">II</td>
-            <td id="rank-val-EMERALD-II-mas">35.250</td>
-            <td id="rank-val-EMERALD-II-apd">36.250</td>
+            <td id="rank-sub-GARNET-II">II</td>
+            <td id="rank-val-GARNET-II-mas">33.250</td>
+            <td id="rank-val-GARNET-II-apd">35.250</td>
           </tr>
           <tr class="grade-i">
-            <td id="rank-sub-EMERALD-I">I</td>
-            <td id="rank-val-EMERALD-I-mas">35.000</td>
-            <td id="rank-val-EMERALD-I-apd">36.000</td>
+            <td id="rank-sub-GARNET-I">I</td>
+            <td id="rank-val-GARNET-I-mas">33.000</td>
+            <td id="rank-val-GARNET-I-apd">35.000</td>
           </tr>
           <tr>
-            <td rowspan="4" id="rank-name-SAPPHIRE" style="color: #67f; font-weight: bold; background: #222;">SAPPHIRE</td>
-            <td id="rank-sub-SAPPHIRE-IV">IV</td>
-            <td id="rank-val-SAPPHIRE-IV-mas">34.750</td>
-            <td id="rank-val-SAPPHIRE-IV-apd">35.750</td>
-          </tr>
-          <tr>
-            <td id="rank-sub-SAPPHIRE-III">III</td>
-            <td id="rank-val-SAPPHIRE-III-mas">34.500</td>
-            <td id="rank-val-SAPPHIRE-III-apd">35.500</td>
-          </tr>
-          <tr>
-            <td id="rank-sub-SAPPHIRE-II">II</td>
-            <td id="rank-val-SAPPHIRE-II-mas">34.250</td>
-            <td id="rank-val-SAPPHIRE-II-apd">35.250</td>
-          </tr>
-          <tr class="grade-i">
-            <td id="rank-sub-SAPPHIRE-I">I</td>
-            <td id="rank-val-SAPPHIRE-I-mas">34.000</td>
-            <td id="rank-val-SAPPHIRE-I-apd">35.000</td>
-          </tr>
-          <tr>
-            <td rowspan="4" id="rank-name-RUBY" style="color: #e26; font-weight: bold; background: #222;">RUBY</td>
-            <td id="rank-sub-RUBY-IV">IV</td>
-            <td id="rank-val-RUBY-IV-mas">33.750</td>
-            <td id="rank-val-RUBY-IV-apd">34.750</td>
-          </tr>
-          <tr>
-            <td id="rank-sub-RUBY-III">III</td>
-            <td id="rank-val-RUBY-III-mas">33.500</td>
-            <td id="rank-val-RUBY-III-apd">34.500</td>
-          </tr>
-          <tr>
-            <td id="rank-sub-RUBY-II">II</td>
-            <td id="rank-val-RUBY-II-mas">33.250</td>
-            <td id="rank-val-RUBY-II-apd">34.250</td>
-          </tr>
-          <tr class="grade-i">
-            <td id="rank-sub-RUBY-I">I</td>
-            <td id="rank-val-RUBY-I-mas">33.000</td>
-            <td id="rank-val-RUBY-I-apd">34.000</td>
-          </tr>
-          <tr>
-            <td rowspan="4" id="rank-name-DIAMOND" style="color: #6dd; font-weight: bold; background: #222;">DIAMOND</td>
+            <td rowspan="4" id="rank-name-DIAMOND" style="color: #6dd; font-weight: bold; background: #222; text-shadow: 0 0 5px #000;">DIAMOND</td>
             <td id="rank-sub-DIAMOND-IV">IV</td>
             <td id="rank-val-DIAMOND-IV-mas">32.750</td>
-            <td id="rank-val-DIAMOND-IV-apd">33.750</td>
+            <td id="rank-val-DIAMOND-IV-apd">34.750</td>
           </tr>
           <tr>
             <td id="rank-sub-DIAMOND-III">III</td>
             <td id="rank-val-DIAMOND-III-mas">32.500</td>
-            <td id="rank-val-DIAMOND-III-apd">33.500</td>
+            <td id="rank-val-DIAMOND-III-apd">34.500</td>
           </tr>
           <tr>
             <td id="rank-sub-DIAMOND-II">II</td>
             <td id="rank-val-DIAMOND-II-mas">32.250</td>
-            <td id="rank-val-DIAMOND-II-apd">33.250</td>
+            <td id="rank-val-DIAMOND-II-apd">34.250</td>
           </tr>
           <tr class="grade-i">
             <td id="rank-sub-DIAMOND-I">I</td>
             <td id="rank-val-DIAMOND-I-mas">32.000</td>
-            <td id="rank-val-DIAMOND-I-apd">33.000</td>
+            <td id="rank-val-DIAMOND-I-apd">34.000</td>
+          </tr>
+          <tr>
+            <td rowspan="4" id="rank-name-PLATINA" style="color: #bee; font-weight: bold; background: #222; text-shadow: 0 0 5px #000;">PLATINA</td>
+            <td id="rank-sub-PLATINA-IV">IV</td>
+            <td id="rank-val-PLATINA-IV-mas">31.500</td>
+            <td id="rank-val-PLATINA-IV-apd">33.500</td>
+          </tr>
+          <tr>
+            <td id="rank-sub-PLATINA-III">III</td>
+            <td id="rank-val-PLATINA-III-mas">31.000</td>
+            <td id="rank-val-PLATINA-III-apd">33.000</td>
+          </tr>
+          <tr>
+            <td id="rank-sub-PLATINA-II">II</td>
+            <td id="rank-val-PLATINA-II-mas">30.500</td>
+            <td id="rank-val-PLATINA-II-apd">32.500</td>
+          </tr>
+          <tr class="grade-i">
+            <td id="rank-sub-PLATINA-I">I</td>
+            <td id="rank-val-PLATINA-I-mas">30.000</td>
+            <td id="rank-val-PLATINA-I-apd">32.000</td>
           </tr>
         </tbody>
       </table>
@@ -912,104 +834,83 @@
         </thead>
         <tbody>
           <tr>
-            <td rowspan="4" id="rank-name-PLATINA" style="color: #bee; font-weight: bold; background: #222;">PLATINA</td>
-            <td id="rank-sub-PLATINA-IV">IV</td>
-            <td id="rank-val-PLATINA-IV-mas">31.500</td>
-            <td id="rank-val-PLATINA-IV-apd">32.500</td>
-          </tr>
-          <tr>
-            <td id="rank-sub-PLATINA-III">III</td>
-            <td id="rank-val-PLATINA-III-mas">31.000</td>
-            <td id="rank-val-PLATINA-III-apd">32.000</td>
-          </tr>
-          <tr>
-            <td id="rank-sub-PLATINA-II">II</td>
-            <td id="rank-val-PLATINA-II-mas">30.500</td>
-            <td id="rank-val-PLATINA-II-apd">31.500</td>
-          </tr>
-          <tr class="grade-i">
-            <td id="rank-sub-PLATINA-I">I</td>
-            <td id="rank-val-PLATINA-I-mas">30.000</td>
-            <td id="rank-val-PLATINA-I-apd">31.000</td>
-          </tr>
-          <tr>
-            <td rowspan="4" id="rank-name-GOLD" style="color: #fc5; font-weight: bold; background: #222;">GOLD</td>
+            <td rowspan="4" id="rank-name-GOLD" style="color: #fc5; font-weight: bold; background: #222; text-shadow: 0 0 5px #000;">GOLD</td>
             <td id="rank-sub-GOLD-IV">IV</td>
             <td id="rank-val-GOLD-IV-mas">29.500</td>
-            <td id="rank-val-GOLD-IV-apd">30.500</td>
+            <td id="rank-val-GOLD-IV-apd">31.500</td>
           </tr>
           <tr>
             <td id="rank-sub-GOLD-III">III</td>
             <td id="rank-val-GOLD-III-mas">29.000</td>
-            <td id="rank-val-GOLD-III-apd">30.000</td>
+            <td id="rank-val-GOLD-III-apd">31.000</td>
           </tr>
           <tr>
             <td id="rank-sub-GOLD-II">II</td>
             <td id="rank-val-GOLD-II-mas">28.500</td>
-            <td id="rank-val-GOLD-II-apd">29.500</td>
+            <td id="rank-val-GOLD-II-apd">30.500</td>
           </tr>
           <tr class="grade-i">
             <td id="rank-sub-GOLD-I">I</td>
             <td id="rank-val-GOLD-I-mas">28.000</td>
-            <td id="rank-val-GOLD-I-apd">29.000</td>
+            <td id="rank-val-GOLD-I-apd">30.000</td>
           </tr>
           <tr>
-            <td rowspan="4" id="rank-name-SILVER" style="color: #ddd; font-weight: bold; background: #222;">SILVER</td>
+            <td rowspan="4" id="rank-name-SILVER" style="color: #ddd; font-weight: bold; background: #222; text-shadow: 0 0 5px #000;">SILVER</td>
             <td id="rank-sub-SILVER-IV">IV</td>
             <td id="rank-val-SILVER-IV-mas">27.000</td>
-            <td id="rank-val-SILVER-IV-apd">28.000</td>
+            <td id="rank-val-SILVER-IV-apd">29.000</td>
           </tr>
           <tr>
             <td id="rank-sub-SILVER-III">III</td>
             <td id="rank-val-SILVER-III-mas">26.000</td>
-            <td id="rank-val-SILVER-III-apd">27.000</td>
+            <td id="rank-val-SILVER-III-apd">28.000</td>
           </tr>
           <tr>
             <td id="rank-sub-SILVER-II">II</td>
             <td id="rank-val-SILVER-II-mas">25.000</td>
-            <td id="rank-val-SILVER-II-apd">26.000</td>
+            <td id="rank-val-SILVER-II-apd">27.000</td>
           </tr>
           <tr class="grade-i">
             <td id="rank-sub-SILVER-I">I</td>
             <td id="rank-val-SILVER-I-mas">24.000</td>
-            <td id="rank-val-SILVER-I-apd">25.000</td>
+            <td id="rank-val-SILVER-I-apd">26.000</td>
           </tr>
           <tr>
-            <td rowspan="4" id="rank-name-BRONZE" style="color: #c73; font-weight: bold; background: #222;">BRONZE</td>
+            <td rowspan="4" id="rank-name-BRONZE" style="color: #c73; font-weight: bold; background: #222; text-shadow: 0 0 5px #000;">BRONZE</td>
             <td id="rank-sub-BRONZE-IV">IV</td>
             <td id="rank-val-BRONZE-IV-mas">23.000</td>
-            <td id="rank-val-BRONZE-IV-apd">24.000</td>
+            <td id="rank-val-BRONZE-IV-apd">25.000</td>
           </tr>
           <tr>
             <td id="rank-sub-BRONZE-III">III</td>
             <td id="rank-val-BRONZE-III-mas">22.000</td>
-            <td id="rank-val-BRONZE-III-apd">23.000</td>
+            <td id="rank-val-BRONZE-III-apd">24.000</td>
           </tr>
           <tr>
             <td id="rank-sub-BRONZE-II">II</td>
             <td id="rank-val-BRONZE-II-mas">21.000</td>
-            <td id="rank-val-BRONZE-II-apd">22.000</td>
+            <td id="rank-val-BRONZE-II-apd">23.000</td>
           </tr>
           <tr class="grade-i">
             <td id="rank-sub-BRONZE-I">I</td>
             <td id="rank-val-BRONZE-I-mas">20.000</td>
-            <td id="rank-val-BRONZE-I-apd">21.000</td>
+            <td id="rank-val-BRONZE-I-apd">22.000</td>
           </tr>
           <tr>
-            <td rowspan="4" id="rank-name-BEGINNER" style="color: #aaa; font-weight: bold; background: #222;">BEGINNER</td>
+            <td rowspan="4" id="rank-name-BEGINNER" style="color: #aaa; font-weight: bold; background: #222; text-shadow: 0 0 5px #000;">BEGINNER</td>
             <td id="rank-sub-BEGINNER-IV">IV</td>
             <td id="rank-val-BEGINNER-IV-mas">15.000</td>
-            <td id="rank-val-BEGINNER-IV-apd">15.750</td>
+            <td id="rank-val-BEGINNER-IV-apd">16.500</td>
           </tr>
           <tr>
             <td id="rank-sub-BEGINNER-III">III</td>
             <td id="rank-val-BEGINNER-III-mas">10.000</td>
-            <td id="rank-val-BEGINNER-III-apd">10.500</td>
+            <td id="rank-val-BEGINNER-III-apd">11.000</td>
           </tr>
           <tr>
             <td id="rank-sub-BEGINNER-II">II</td>
             <td id="rank-val-BEGINNER-II-mas">5.000</td>
-            <td id="rank-val-BEGINNER-II-apd">5.250</td>
+            <td id="rank-val-BEGINNER-II-apd">5.500</td>
           </tr>
           <tr class="grade-i">
             <td id="rank-sub-BEGINNER-I">I</td>
@@ -1059,10 +960,6 @@
     mas: 'all_9',
     apd: 'all_9'
   };
-  let judgeDeckState = {
-    mas: false,
-    apd: false
-  };
 
   const jacketMap = {};
   const badgeColorState = {};
@@ -1093,62 +990,47 @@
     { name: "DIAMOND II", min: 32.250, color: "#6dd" },
     { name: "DIAMOND III", min: 32.500, color: "#6dd" },
     { name: "DIAMOND IV", min: 32.750, color: "#6dd" },
-    { name: "RUBY I", min: 33.000, color: "#e26" },
-    { name: "RUBY II", min: 33.250, color: "#e26" },
-    { name: "RUBY III", min: 33.500, color: "#e26" },
-    { name: "RUBY IV", min: 33.750, color: "#e26" },
-    { name: "SAPPHIRE I", min: 34.000, color: "#67f" },
-    { name: "SAPPHIRE II", min: 34.250, color: "#67f" },
-    { name: "SAPPHIRE III", min: 34.500, color: "#67f" },
-    { name: "SAPPHIRE IV", min: 34.750, color: "#67f" },
-    { name: "EMERALD I", min: 35.000, color: "#2c8" },
-    { name: "EMERALD II", min: 35.250, color: "#2c8" },
-    { name: "EMERALD III", min: 35.500, color: "#2c8" },
-    { name: "EMERALD IV", min: 35.750, color: "#2c8" },
-    { name: "AMETHYST I", min: 36.000, color: "#85e" }
+    { name: "GARNET I", min: 33.000, color: "#e36" },
+    { name: "GARNET II", min: 33.250, color: "#e36" },
+    { name: "GARNET III", min: 33.500, color: "#e36" },
+    { name: "GARNET IV", min: 33.750, color: "#e36" },
+    { name: "AMETHYST I", min: 34.000, color: "#85e" },
+    { name: "AMETHYST II", min: 35.000, color: "#85e" },
+    { name: "AMETHYST III", min: 36.000, color: "#85e" }
   ];
 
   const ranksAPD = [
     { name: "BEGINNER I", min: 0.000, color: "#aaa" },
-    { name: "BEGINNER II", min: 5.250, color: "#aaa" },
-    { name: "BEGINNER III", min: 10.500, color: "#aaa" },
-    { name: "BEGINNER IV", min: 15.750, color: "#aaa" },
-    { name: "BRONZE I", min: 21.000, color: "#c73" },
-    { name: "BRONZE II", min: 22.000, color: "#c73" },
-    { name: "BRONZE III", min: 23.000, color: "#c73" },
-    { name: "BRONZE IV", min: 24.000, color: "#c73" },
-    { name: "SILVER I", min: 25.000, color: "#ddd" },
-    { name: "SILVER II", min: 26.000, color: "#ddd" },
-    { name: "SILVER III", min: 27.000, color: "#ddd" },
-    { name: "SILVER IV", min: 28.000, color: "#ddd" },
-    { name: "GOLD I", min: 29.000, color: "#fc5" },
-    { name: "GOLD II", min: 29.500, color: "#fc5" },
-    { name: "GOLD III", min: 30.000, color: "#fc5" },
-    { name: "GOLD IV", min: 30.500, color: "#fc5" },
-    { name: "PLATINA I", min: 31.000, color: "#bee" },
-    { name: "PLATINA II", min: 31.500, color: "#bee" },
-    { name: "PLATINA III", min: 32.000, color: "#bee" },
-    { name: "PLATINA IV", min: 32.500, color: "#bee" },
-    { name: "DIAMOND I", min: 33.000, color: "#6dd" },
-    { name: "DIAMOND II", min: 33.250, color: "#6dd" },
-    { name: "DIAMOND III", min: 33.500, color: "#6dd" },
-    { name: "DIAMOND IV", min: 33.750, color: "#6dd" },
-    { name: "RUBY I", min: 34.000, color: "#e26" },
-    { name: "RUBY II", min: 34.250, color: "#e26" },
-    { name: "RUBY III", min: 34.500, color: "#e26" },
-    { name: "RUBY IV", min: 34.750, color: "#e26" },
-    { name: "SAPPHIRE I", min: 35.000, color: "#67f" },
-    { name: "SAPPHIRE II", min: 35.250, color: "#67f" },
-    { name: "SAPPHIRE III", min: 35.500, color: "#67f" },
-    { name: "SAPPHIRE IV", min: 35.750, color: "#67f" },
-    { name: "EMERALD I", min: 36.000, color: "#2c8" },
-    { name: "EMERALD II", min: 36.250, color: "#2c8" },
-    { name: "EMERALD III", min: 36.500, color: "#2c8" },
-    { name: "EMERALD IV", min: 36.750, color: "#2c8" },
-    { name: "AMETHYST I", min: 37.000, color: "#85e" },
-    { name: "AMETHYST II", min: 37.250, color: "#85e" },
-    { name: "AMETHYST III", min: 37.500, color: "#85e" },
-    { name: "AMETHYST IV", min: 37.750, color: "#85e" }
+    { name: "BEGINNER II", min: 5.500, color: "#aaa" },
+    { name: "BEGINNER III", min: 11.000, color: "#aaa" },
+    { name: "BEGINNER IV", min: 16.500, color: "#aaa" },
+    { name: "BRONZE I", min: 22.000, color: "#c73" },
+    { name: "BRONZE II", min: 23.000, color: "#c73" },
+    { name: "BRONZE III", min: 24.000, color: "#c73" },
+    { name: "BRONZE IV", min: 25.000, color: "#c73" },
+    { name: "SILVER I", min: 26.000, color: "#ddd" },
+    { name: "SILVER II", min: 27.000, color: "#ddd" },
+    { name: "SILVER III", min: 28.000, color: "#ddd" },
+    { name: "SILVER IV", min: 29.000, color: "#ddd" },
+    { name: "GOLD I", min: 30.000, color: "#fc5" },
+    { name: "GOLD II", min: 30.500, color: "#fc5" },
+    { name: "GOLD III", min: 31.000, color: "#fc5" },
+    { name: "GOLD IV", min: 31.500, color: "#fc5" },
+    { name: "PLATINA I", min: 32.000, color: "#bee" },
+    { name: "PLATINA II", min: 32.500, color: "#bee" },
+    { name: "PLATINA III", min: 33.000, color: "#bee" },
+    { name: "PLATINA IV", min: 33.500, color: "#bee" },
+    { name: "DIAMOND I", min: 34.000, color: "#6dd" },
+    { name: "DIAMOND II", min: 34.250, color: "#6dd" },
+    { name: "DIAMOND III", min: 34.500, color: "#6dd" },
+    { name: "DIAMOND IV", min: 34.750, color: "#6dd" },
+    { name: "GARNET I", min: 35.000, color: "#e36" },
+    { name: "GARNET II", min: 35.250, color: "#e36" },
+    { name: "GARNET III", min: 35.500, color: "#e36" },
+    { name: "GARNET IV", min: 35.750, color: "#e36" },
+    { name: "AMETHYST I", min: 36.000, color: "#85e" },
+    { name: "AMETHYST II", min: 37.000, color: "#85e" },
+    { name: "AMETHYST III", min: 38.000, color: "#85e" }
   ];
 
   const dataMAS = {};
@@ -1177,7 +1059,6 @@
     loadLocalStorage();
     renderInputs();
     renderProfileGrid();
-    document.getElementById('judge-deck-checkbox').checked = !!judgeDeckState[currentMode];
     calculate();
     setupKeyboardListeners();
   }
@@ -1220,8 +1101,7 @@
       selectedProfileIndex: selectedProfileIndex,
       jacketMap: jacketMap,
       badgeColorState: badgeColorState,
-      achievementOptions: achievementOptions,
-      judgeDeckState: judgeDeckState
+      achievementOptions: achievementOptions
     };
     localStorage.setItem('sekai_rating_data', JSON.stringify(saveData));
   }
@@ -1246,10 +1126,8 @@
         achievementOptions.mas = parsed.achievementOption;
         achievementOptions.apd = parsed.achievementOption;
       }
-      if (parsed.judgeDeckState) Object.assign(judgeDeckState, parsed.judgeDeckState);
 
       document.getElementById('achievement-option-select').value = achievementOptions[currentMode];
-      document.getElementById('judge-deck-checkbox').checked = !!judgeDeckState[currentMode];
     } catch (e) {
       console.error('LocalStorage load failed', e);
     }
@@ -1347,22 +1225,9 @@
     event.target.classList.add('active');
 
     document.getElementById('achievement-option-select').value = achievementOptions[currentMode];
-    document.getElementById('judge-deck-checkbox').checked = !!judgeDeckState[currentMode];
 
     renderInputs();
     calculate();
-  }
-
-  function toggleJudgeDeck(checked) {
-    judgeDeckState[currentMode] = checked;
-    calculate();
-    saveLocalStorage();
-  }
-
-  function getGlowClass(data) {
-    if (data.ap > 0) return 'glow-ap';
-    if (data.fc > 0) return 'glow-fc';
-    return '';
   }
 
   function renderInputs() {
@@ -1377,9 +1242,8 @@
 
     levels.forEach(level => {
       const data = currentMode === 'mas' ? dataMAS[level] : dataAPD[level];
-      const fcPts = format3((level) + 0.726);
-      const apPts = format3((level) + 2.150);
-      const glowClass = getGlowClass(data);
+      const fcPts = format3(level - (level * 0.002));
+      const apPts = format3(level + 2 + (level * 0.008));
       
       let badgeBg = '';
       let badgeColor = '#fff';
@@ -1394,7 +1258,7 @@
       }
       
       const row = document.createElement('div');
-      row.className = `row ${glowClass}`;
+      row.className = 'row';
       row.id = `row-${currentMode}-${level}`;
       
       row.innerHTML = `
@@ -1422,14 +1286,6 @@
       dataAPD[level][type] = val;
     }
 
-    const data = currentMode === 'mas' ? dataMAS[level] : dataAPD[level];
-    const rowEl = document.getElementById(`row-${currentMode}-${level}`);
-    if (rowEl) {
-      rowEl.classList.remove('glow-ap', 'glow-fc');
-      const newClass = getGlowClass(data);
-      if (newClass) rowEl.classList.add(newClass);
-    }
-
     calculate();
     saveLocalStorage();
   }
@@ -1441,7 +1297,7 @@
     }
 
     let allAchievements = [];
-    const divisor = currentMode === 'mas' ? 39 : 26;
+    const divisor = currentMode === 'mas' ? 25 : 20;
     const data = currentMode === 'mas' ? dataMAS : dataAPD;
     const modePrefix = currentMode === 'apd' ? 'Lv.APD' : 'Lv.';
 
@@ -1456,7 +1312,7 @@
         allAchievements.push({
           lvl: lvl,
           type: 'AP',
-          score: trunc3((lvl) + 2.150),
+          score: trunc3(lvl + 2 + (lvl * 0.008)),
           key: `${currentMode}_${lvl}_AP_${dupIdx}`
         });
       }
@@ -1466,7 +1322,7 @@
         allAchievements.push({
           lvl: lvl,
           type: 'FC',
-          score: trunc3((lvl) + 0.726),
+          score: trunc3(lvl - (lvl * 0.002)),
           key: `${currentMode}_${lvl}_FC_${dupIdx}`
         });
       }
@@ -1479,23 +1335,40 @@
 
     let totalSum = 0;
     const countedNumber = Math.min(allAchievements.length, divisor);
+    const included = allAchievements.slice(0, countedNumber);
+    const includedKeys = new Set(included.map(inc => inc.key));
+
     for (let i = 0; i < countedNumber; i++) {
-      totalSum += allAchievements[i].score;
+      totalSum += included[i].score;
     }
 
-    let rawFinal = trunc3(totalSum / divisor);
-    if (judgeDeckState[currentMode]) {
-      rawFinal = trunc3(rawFinal - 0.068);
-      if (rawFinal < 0) rawFinal = 0;
-    }
+    // 입력란 난이도 줄 불빛 업데이트 (상위 n곡 계산에 포함되는 성과가 존재하는 레벨만 켜짐)
+    let levels = currentMode === 'mas' 
+      ? Object.keys(dataMAS).map(Number)
+      : Object.keys(dataAPD).map(Number);
 
-    const finalScore = rawFinal;
+    levels.forEach(lvl => {
+      const lvlIncluded = included.filter(inc => inc.lvl === lvl);
+      const hasAp = lvlIncluded.some(inc => inc.type === 'AP');
+      const hasFc = lvlIncluded.some(inc => inc.type === 'FC');
+
+      const rowEl = document.getElementById(`row-${currentMode}-${lvl}`);
+      if (rowEl) {
+        rowEl.classList.remove('glow-ap', 'glow-fc');
+        if (hasAp) {
+          rowEl.classList.add('glow-ap');
+        } else if (hasFc) {
+          rowEl.classList.add('glow-fc');
+        }
+      }
+    });
+
+    const finalScore = trunc3(totalSum / divisor);
     currentCalculatedScore = finalScore;
 
     const infoBox = document.getElementById('info-box');
     
     if (countedNumber > 0) {
-      const included = allAchievements.slice(0, countedNumber);
       let includedMap = {};
       
       included.forEach(inc => {
@@ -1510,7 +1383,7 @@
         msgTexts.push(`${modePrefix}${inc.lvl} ${inc.type} ${inc.count}곡`);
       }
       
-      infoBox.innerHTML = msgTexts.join(' + ') + ` = 총 ${countedNumber}곡 레이팅 계산 반영 완료`;
+      infoBox.innerHTML = msgTexts.join(' & ') + ` = 총 ${countedNumber}곡 레이팅 계산 반영 완료`;
       infoBox.style.display = 'block';
     } else {
       infoBox.style.display = 'none';
@@ -1521,7 +1394,7 @@
     document.getElementById('final-score').innerHTML = `${parts[0]}<span class="decimal">.${parts[1]}</span>`;
 
     updateRank(finalScore);
-    renderMajorAchievements(allAchievements);
+    renderMajorAchievements(allAchievements, includedKeys);
   }
 
   function updateRank(score) {
@@ -1578,7 +1451,7 @@
     calculate();
   }
 
-  function renderMajorAchievements(allAchievements) {
+  function renderMajorAchievements(allAchievements, includedKeys = new Set()) {
     const grid = document.getElementById('jackets-grid');
     grid.innerHTML = '';
 
@@ -1588,27 +1461,27 @@
     if (currentOption === 'all_9') {
       const top9 = allAchievements.slice(0, 9);
       top9.forEach((item, i) => {
-        slots[i] = { ...item, rankLabel: `#${i + 1}` };
+        slots[i] = { ...item, rankLabel: item.type };
       });
     } else if (currentOption === 'ap3_fc6') {
       const apList = allAchievements.filter(a => a.type === 'AP');
       const fcList = allAchievements.filter(a => a.type === 'FC');
 
       for (let i = 0; i < Math.min(3, apList.length); i++) {
-        slots[i] = { ...apList[i], rankLabel: `#P${i + 1}` };
+        slots[i] = { ...apList[i], rankLabel: apList[i].type };
       }
       for (let i = 0; i < Math.min(6, fcList.length); i++) {
-        slots[i + 3] = { ...fcList[i], rankLabel: `#F${i + 1}` };
+        slots[i + 3] = { ...fcList[i], rankLabel: fcList[i].type };
       }
     } else {
       const apList = allAchievements.filter(a => a.type === 'AP');
       const fcList = allAchievements.filter(a => a.type === 'FC');
 
       for (let i = 0; i < Math.min(6, apList.length); i++) {
-        slots[i] = { ...apList[i], rankLabel: `#P${i + 1}` };
+        slots[i] = { ...apList[i], rankLabel: apList[i].type };
       }
       for (let i = 0; i < Math.min(3, fcList.length); i++) {
-        slots[i + 6] = { ...fcList[i], rankLabel: `#F${i + 1}` };
+        slots[i + 6] = { ...fcList[i], rankLabel: fcList[i].type };
       }
     }
 
@@ -1656,10 +1529,16 @@
         rankDiv.className = 'card-rank-text';
         rankDiv.innerText = item.rankLabel;
 
+        const isIncluded = includedKeys.has(item.key);
         const scoreDiv = document.createElement('div');
         scoreDiv.className = 'card-score-text';
         scoreDiv.innerText = format3(item.score);
-        scoreDiv.style.color = (item.type === 'AP') ? '#81fafa' : '#ff80ab';
+
+        if (isIncluded) {
+          scoreDiv.style.color = (item.type === 'AP') ? '#81fafa' : '#ff80ab';
+        } else {
+          scoreDiv.style.color = '#bbb';
+        }
 
         cardDiv.appendChild(badgeDiv);
         cardDiv.appendChild(rankDiv);
@@ -1719,8 +1598,7 @@
       selectedProfileIndex: selectedProfileIndex,
       jacketMap: jacketMap,
       badgeColorState: badgeColorState,
-      achievementOptions: achievementOptions,
-      judgeDeckState: judgeDeckState
+      achievementOptions: achievementOptions
     };
 
     const rawNickname = document.getElementById('nickname-input').value.trim();
@@ -1769,10 +1647,8 @@
             achievementOptions.mas = rawData.achievementOption;
             achievementOptions.apd = rawData.achievementOption;
           }
-          if (rawData.judgeDeckState) Object.assign(judgeDeckState, rawData.judgeDeckState);
 
           document.getElementById('achievement-option-select').value = achievementOptions[currentMode];
-          document.getElementById('judge-deck-checkbox').checked = !!judgeDeckState[currentMode];
 
           renderInputs();
           calculate();
@@ -1799,9 +1675,7 @@
 
     document.getElementById('nickname-input').value = '';
     achievementOptions = { mas: 'all_9', apd: 'all_9' };
-    judgeDeckState = { mas: false, apd: false };
     document.getElementById('achievement-option-select').value = 'all_9';
-    document.getElementById('judge-deck-checkbox').checked = false;
 
     localStorage.removeItem('sekai_rating_data');
     renderInputs();
