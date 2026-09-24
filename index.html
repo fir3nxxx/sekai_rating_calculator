@@ -685,9 +685,9 @@
     <div style="margin-bottom: 15px;">
       <label for="achievement-option-select" style="font-size: 13px; color: #aaa; display: block; margin-bottom: 8px;">표시 방식을 선택하세요</label>
       <select id="achievement-option-select" onchange="changeAchievementOption(this.value)">
-        <option value="all_9">전체 성과 통합 9곡</option>
-        <option value="ap6_fc3">AP 성과 6곡 & FC 성과 3곡</option>
-        <option value="ap3_fc6">AP 성과 3곡 & FC 성과 6곡</option>
+        <option value="all_9">전체 성과 통합 상위 9곡</option>
+        <option value="ap6_fc3">AP 상위 6곡 & FC 상위 3곡</option>
+        <option value="ap3_fc6">AP 상위 3곡 & FC 상위 6곡</option>
       </select>
     </div>
     <div class="modal-footer" style="justify-content: flex-end;">
@@ -701,7 +701,7 @@
     <h3>자켓 이미지 ID 입력</h3>
     <input type="text" id="modal-id-input" placeholder="ID 입력 예: 2, 49, 187" style="width: 100%; padding: 10px; box-sizing: border-box; margin-top: 5px;">
     <div class="modal-footer">
-      <a href="https://rilakbest.com/song/list/all" target="_blank" class="modal-find-link">ID 찾기 #</a>
+      <a href="https://rilakbest.com/song/list/all" target="_blank" class="modal-find-link">ID 찾기 (#)</a>
       <div class="modal-buttons">
         <button class="btn btn-save" style="padding: 6px 12px; min-width: auto; font-size: 12px;" onclick="submitJacketId()">확인</button>
         <button class="btn btn-reset" style="padding: 6px 12px; min-width: auto; font-size: 12px;" onclick="deleteJacketId()">삭제</button>
